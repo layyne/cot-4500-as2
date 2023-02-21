@@ -65,8 +65,8 @@ def hermite(xs, ys, dys):
     return result[:, :-1]
 
 
-# Performs cubic spline interpolation to produce the
-# characteristic equation for a given set of ordered pairs
+# Performs cubic spline interpolation to produce the interpolating
+# matrix equation and solution for a given set of ordered pairs
 def cubic_spline(xs, fxs):
     xs = np.float64(xs)
     fxs = np.float64(fxs)
