@@ -44,13 +44,21 @@ def newton_forward(xs, ys):
     return coeff[1:], p
 
 
-def q2and3():
+def q2():
+    xs = [7.2, 7.4, 7.5, 7.6]
+    ys = [23.5492, 25.3913, 26.8224, 27.4589]
+
+    coeff, _ = newton_forward(xs, ys)
+    return coeff
+
+
+def q3():
     xs = [7.2, 7.4, 7.5, 7.6]
     ys = [23.5492, 25.3913, 26.8224, 27.4589]
     x = 7.3
 
-    coeff, p = newton_forward(xs, ys)
-    return coeff, p(x)
+    _, p = newton_forward(xs, ys)
+    return p(x)
 
 
 def hermite(xs, ys, dys):
@@ -60,7 +68,7 @@ def hermite(xs, ys, dys):
     diffs = np.zeros((n, n))
     diffs[:, 0] = np.repeat(ys, 2)
 
-    # Set up column 2 with derivative samples
+    # Set up column 2 (with derivative samples)
     for i in range(1, n):
         if i % 2 == 1:
             diffs[i][1] = dys[i//2]
@@ -81,9 +89,6 @@ def q4():
     xs = [3.6, 3.8, 3.9]
     ys = [1.675, 1.436, 1.318]
     dys = [-1.195, -1.188, -1.182]
-    # xs = [1.3, 1.6, 1.9]
-    # ys = [0.6200860, 0.4554022, 0.2818186]
-    # dys = [-0.5220232, -0.5698959, -0.5811571]
 
     return hermite(xs, ys, dys)
 
@@ -91,9 +96,12 @@ def q4():
 if __name__ == '__main__':
     print(q1(), end='\n\n')
 
-    q2, q3 = q2and3()
-    print(*q2, sep='\n', end='\n\n')
+    print(list(q2()), end='\n\n')
 
-    print(q3, end='\n\n')
+    print(q3(), end='\n\n')
 
-    print(*q4(), sep='\n', end='\n\n')
+    np.set_printoptions(
+        precision=7,
+        suppress=True,
+    )
+    print(q4()[:, :-1], end='\n\n')
