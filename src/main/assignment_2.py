@@ -142,13 +142,11 @@ def cubic_spline(xs, fxs):
     # Build matrix A
     A = np.float64([[0] * (n + 1) for _ in range(n + 1)])
     for i in range(n - 1):
-        A[i+1][i] = hs[i]
-        A[i+1][i+1] = 2 * (hs[i] + hs[i+1])
-        A[i+1][i+2] = hs[i+1]
+        A[i+1][i:i+3] = hs[i], 2 * (hs[i] + hs[i+1]), hs[i+1]
     A[0][0], A[-1][-1] = 1, 1
 
+    # Vectors b and x (solution)
     b = np.float64([0] + alphs + [0])
-
     x = np.float64(cs)
 
     return A, b, x
